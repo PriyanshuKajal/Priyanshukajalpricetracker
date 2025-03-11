@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Price Tracker</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        input, button { padding: 10px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h2>Amazon Price Tracker</h2>
+    <input type="text" id="botToken" placeholder="Enter Telegram Bot Token"><br>
+    <input type="text" id="chatId" placeholder="Enter Telegram Chat ID"><br>
+    <input type="text" id="productUrl" placeholder="Enter Amazon Product URL"><br>
+    <button onclick="trackPrice()">Start Tracking</button>
+    <p id="result"></p>
+
+    <script>
+        async function trackPrice() {
+            let botToken = document.getElementById("botToken").value;
+            let chatId = document.getElementById("chatId").value;
+            let productUrl = document.getElementById("productUrl").value;
+            
+            let response = await fetch("/track", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ botToken, chatId, productUrl })
+            });
+
+            let data = await response.json();
+            document.getElementById("result").innerHTML = data.message;
+        }
+    </script>
+</body>
+</html>
