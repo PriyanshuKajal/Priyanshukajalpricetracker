@@ -11,7 +11,7 @@ app = Flask(__name__)
 conn = sqlite3.connect("products.db", check_same_thread=False)
 cursor = conn.cursor()
 cursor.execute("CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY, url TEXT, bot_token TEXT, chat_id TEXT)")
-conn.commit()
+conn.commit() 
 
 # Amazon Price Fetch Function
 def get_amazon_price(url):
